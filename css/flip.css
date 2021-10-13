@@ -1,0 +1,47 @@
+body {
+  height: 100vh;
+  background: lightblue;
+}
+
+.btn {
+  background: lightseagreen;
+  padding: 10px 20px;
+  font-size: 16px;
+  border: none;
+  position: absolute;
+  top: 20px;
+  left: 20px;
+}
+
+ul,
+li {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+ul {
+  margin: 0 auto;
+  padding: 24px;
+  max-width: 500px;
+  background: #f38d8d;
+
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+li {
+  display: block;
+  background: #efefef;
+  padding: 12px;
+  will-change: transform;
+}
+
+li > div {
+  background: #afafaf;
+  padding: 32px;
+}
