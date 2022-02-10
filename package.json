@@ -1,4 +1,8 @@
 {
+  "private": true,
+  "workspaces": [
+    "src/*"
+  ],
   "name": "utils-creator",
   "version": "1.0.0",
   "repository": "https://github.com/ivbrajkovic/utils-creator",
@@ -12,25 +16,30 @@
     "server": "json-server --watch db.json --port 4000 --delay 3000",
     "build:utils": "babel src/utils/src -d src/utils/dist",
     "terser": "terser src/utils/index.js",
-    "build:rollup": "rollup -c rollup.config.ts"
+    "build:rollup": "rollup -c rollup.config.ts",
+    "analyze": "cross-env ANALYZE=true next build",
+    "analyze:server": "cross-env BUNDLE_ANALYZE=server next build",
+    "analyze:browser": "cross-env BUNDLE_ANALYZE=browser next build"
   },
   "dependencies": {
     "@ivbrajkovic/utils": "^2.0.2",
     "@next/bundle-analyzer": "^11.1.2",
     "@types/react": "^16.9.56",
     "eslint": "^7.14.0",
-    "hooks": "file:./src/hooks",
     "json-server": "^0.16.2",
     "next": "^10.0.0",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "terser": "^5.1.0",
     "typescript": "^4.1.2",
-    "utils1": "file:./src/utils/lib"
+    "simple-state": "file:./src/simple-state",
+    "@ivbrajkovic/simple-state": "^1",
+    "@ivbrajkovic/deep-state": "^1"
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^4.6.0",
     "@typescript-eslint/parser": "^4.6.0",
+    "cross-env": "^7.0.3",
     "eslint-config-airbnb-typescript": "^12.0.0",
     "eslint-config-prettier": "^6.15.0",
     "eslint-plugin-import": "^2.22.1",
@@ -38,5 +47,9 @@
     "eslint-plugin-react": "^7.21.5",
     "eslint-plugin-react-hooks": "^4.2.0",
     "prettier": "2.4.1"
+  },
+  "peerDependencies": {
+    "react": ">= 16.8.0",
+    "react-dom": ">= 16.8.0"
   }
 }

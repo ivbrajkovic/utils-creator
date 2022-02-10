@@ -1,24 +1,59 @@
-import React, { useEffect } from 'react';
-// import { isObjectEmpty, fetchSimpleJsonAsync } from "@ivbrajkovic/utils";
-import { absValue } from '../src/utils';
+import { useDeepEffect, useDeepState } from '@ivbrajkovic/deep-state';
+import { useEffect, useRef, useState } from 'react';
 
-const inline = () => {
-  console.log('absValue', absValue(-300));
+const Index = () => {
+  const nameRef = useRef();
+  const ageRef = useRef();
 
-  // useEffect(() => {
-  //   (async () => {
-  //     try {
-  //       const data = await fetchSimpleJsonAsync(
-  //         "http://localhost:4000/todos/1"
-  //       );
-  //       console.log("inline -> data", data);
-  //     } catch (error) {
-  //       console.log("inline -> error", error);
-  //     }
-  //   })();
-  // }, []);
+  const [state, setState] = useDeepState({ name: 'Ivan', age: 40 });
 
-  return <div></div>;
+  const c = useRef(0);
+  useEffect(() => {
+    c.current = c.current + 1;
+  });
+
+  const handleNameChange = () => {
+    setState({ name: nameRef.current.value }, ['name']);
+  };
+
+  const handleAgeChange = () => {
+    setState({ age: parseInt(ageRef.current.value) }, ['age']);
+  };
+
+  const [nameChangeCount, setNameChangeCount] = useState(0);
+  useDeepEffect(
+    () => {
+      setNameChangeCount(nameChangeCount + 1);
+    },
+    [state],
+    ([oldState]) => oldState.name !== state.name
+  );
+
+  return (
+    <div className="App">
+      <h1>Hello CodeSandbox</h1>
+      <h2>Start editing to see some magic happen!</h2>
+      <div>Render count: {c.current}</div>
+      <div>Name changes: {nameChangeCount}</div>
+      <br />
+      <div>
+        <input ref={nameRef} defaultValue={state.name} />
+        <button id="name_btn" onClick={handleNameChange}>
+          Change
+        </button>
+      </div>
+      <div>
+        <input ref={ageRef} defaultValue={state.age} />
+        <button id="age_btn" onClick={handleAgeChange}>
+          Change
+        </button>
+      </div>
+      <br />
+      <div>
+        {state.name}, {state.age}
+      </div>
+    </div>
+  );
 };
 
-export default inline;
+export default Index;
